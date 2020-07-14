@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - 'v*'
+  pull_request:
+  schedule:
+    - cron: '0 3 * * *' # daily, at 3am
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
+      - run: yarn test:ember
+
+  floating-dependencies:
+    name: Run Tests (Floating Dependencies)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          
+      - run: yarn install --no-lockfile
+      - run: yarn test:ember
+
+  try-scenarios:
+    name: "Try: ${{ matrix.ember-try-scenario }}"
+    runs-on: ubuntu-latest
+
+    needs: test
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ember-try-scenario:
+          - ember-lts-3.12
+          - ember-lts-3.16
+          - ember-release
+          - ember-beta
+          - ember-canary
+          - ember-classic
+          - ember-default-with-jquery
+
+    steps:
+      - uses: actions/checkout@v2
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn run ember try:one ${{ matrix.ember-try-scenario }} --skip-cleanup
