@@ -1,3 +1,12 @@
+<a href="https://github.com/LexasCMS/ember-data-lexascms/actions">
+  <img src="https://github.com/LexasCMS/ember-data-lexascms/workflows/CI/badge.svg" alt="CI Build Status" />
+</a>
+
+<a href="https://badge.fury.io/js/ember-data-lexascms">
+  <img src="https://badge.fury.io/js/ember-data-lexascms.svg" alt="NPM Package Version" />
+</a>
+
+
 ember-data-lexascms
 ===============================================================
 
