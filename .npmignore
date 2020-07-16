@@ -13,6 +13,7 @@
 /.eslintignore
 /.eslintrc.js
 /.git/
+/.github
 /.gitignore
 /.template-lintrc.js
 /.travis.yml
@@ -24,6 +25,7 @@
 /testem.js
 /tests/
 /yarn.lock
+/yarn-error.log
 .gitkeep
 
 # ember-try
