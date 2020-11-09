@@ -1,9 +1,14 @@
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
+import { inject as service } from '@ember/service';
 import { assert } from '@ember/debug';
 import { camelize } from '@ember/string';
 import config from 'ember-get-config';
 
 export default class LexascmsAdapter extends JSONAPIAdapter {
+
+  @service lexascms;
+
+  namespace = 'delivery/jsonapi';
 
   get host() {
     // Assert that LexasCMS config object is defined
@@ -18,10 +23,38 @@ export default class LexascmsAdapter extends JSONAPIAdapter {
     return `https://${config.lexascms.spaceId}.spaces.lexascms.com`;
   }
 
-  namespace = 'delivery/jsonapi';
+  get headers() {
+    // Define headers
+    const headers = {};
+    // Set LexasCMS request context if required
+    const lexascmsRequestContext = this._prepareLexasCMSRequestContext();
+    if (lexascmsRequestContext !== null) {
+      headers['x-lexascms-context'] = lexascmsRequestContext
+    }
+    // Return headers
+    return headers;
+  }
 
   pathForType(modelName) {
     return camelize(modelName);
+  }
+
+  /**
+   * Encodes and returns the current LexasCMS request context object.
+   * 
+   * @return {string} JSON and Base64 encoded request context.
+   */
+  _prepareLexasCMSRequestContext() {
+    // Get request context
+    const requestContext = this.lexascms.getRequestContext();
+    // Return null if there is no context
+    if (Object.keys(requestContext).length === 0) {
+      return null;
+    }
+    // Encode request context
+    const encodedRequestContext = btoa(JSON.stringify(requestContext));
+    // Return encoded request context
+    return encodedRequestContext;
   }
 
 }
