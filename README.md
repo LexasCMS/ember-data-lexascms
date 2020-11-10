@@ -13,6 +13,20 @@ ember-data-lexascms
 This is the officially supported addon for using the [LexasCMS](https://www.lexascms.com/) JSON:API content delivery API with [Ember Data](https://github.com/emberjs/data/).
 
 
+Table of Contents
+---------------------------------------------------------------
+
+- [Why do I need this addon?](#why-do-i-need-this-addon)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Configure Adapters and Serializers](#configure-adapters-and-serializers)
+  - [Retrieving Image Fields](#retrieving-image-fields)
+  - [Retrieving and Querying Content](#retrieving-and-querying-content)
+  - [Setting the Request Context](#setting-the-request-context)
+- [Contributing](#contributing)
+- [License](#license)
+
+
 Why do I need this addon?
 ---------------------------------------------------------------
 
