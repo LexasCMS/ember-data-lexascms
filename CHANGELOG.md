@@ -1,3 +1,14 @@
+## 0.1.3 (2020-11-10)
+
+#### :rocket: Enhancement
+* [#5](https://github.com/LexasCMS/ember-data-lexascms/pull/5) Add support for LexasCMS Request Context ([@mike183](https://github.com/mike183))
+
+#### :house: Internal
+* [#6](https://github.com/LexasCMS/ember-data-lexascms/pull/6) Add Embroider safe compatibility tests ([@mike183](https://github.com/mike183))
+
+#### Committers: 1
+- Michael Donaldson ([@mike183](https://github.com/mike183))
+
 ## 0.1.2 (2020-07-20)
 
 #### :bug: Bug Fix
