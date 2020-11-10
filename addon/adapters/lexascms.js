@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { assert } from '@ember/debug';
 import { camelize } from '@ember/string';
 import config from 'ember-get-config';
+import base64 from 'base-64';
 
 export default class LexascmsAdapter extends JSONAPIAdapter {
 
@@ -52,7 +53,7 @@ export default class LexascmsAdapter extends JSONAPIAdapter {
       return null;
     }
     // Encode request context
-    const encodedRequestContext = btoa(JSON.stringify(requestContext));
+    const encodedRequestContext = base64.encode(JSON.stringify(requestContext));
     // Return encoded request context
     return encodedRequestContext;
   }
