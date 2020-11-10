@@ -13,6 +13,20 @@ ember-data-lexascms
 This is the officially supported addon for using the [LexasCMS](https://www.lexascms.com/) JSON:API content delivery API with [Ember Data](https://github.com/emberjs/data/).
 
 
+Table of Contents
+---------------------------------------------------------------
+
+- [Why do I need this addon?](#why-do-i-need-this-addon)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Configure Adapters and Serializers](#configure-adapters-and-serializers)
+  - [Retrieving Image Fields](#retrieving-image-fields)
+  - [Retrieving and Querying Content](#retrieving-and-querying-content)
+  - [Setting the Request Context](#setting-the-request-context)
+- [Contributing](#contributing)
+- [License](#license)
+
+
 Why do I need this addon?
 ---------------------------------------------------------------
 
@@ -120,7 +134,6 @@ export default class BlogPostModel extends Model {
 }
 ```
 
-
 ### Retrieving and Querying Content
 
 Once you have completed the above steps and defined all of your models, you can retrieve content from LexasCMS using the regular Ember Data methods (`findAll`, `findRecord`, `query` etc.).
@@ -142,6 +155,36 @@ this.store.query('blog-post', {
 ```
 
 For further information on the available query options, please see the [full documentation](https://www.lexascms.com/docs/api-reference/content-delivery/jsonapi/) for the JSON:API content delivery API.
+
+### Setting the Request Context
+
+In the event that you would like to set a request context on your requests to LexasCMS (i.e. for content personalisation), you can call the `setRequestContext` method on the `lexascms` service.
+
+This method can be called from anywhere within your application, and will automatically attach the provided context to all requests made to LexasCMS via Ember Data.
+
+**Note:** You can also retrieve the current request context using the `getRequestContext` method on the `lexascms` service.
+
+The following example shows how you could attach a request context from the `beforeModel` hook of your application route.
+
+```js
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
+
+export default class ApplicationRoute extends Route {
+
+  @service lexascms;
+
+  beforeModel() {
+    this.lexascms.setRequestContext({
+      audienceAttributes: {
+        age: 25,
+        location: 'GB'
+      }
+    });
+  }
+
+}
+```
 
 
 Contributing

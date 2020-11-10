@@ -25,11 +25,39 @@ module('Unit | Adapter | lexascms', function(hooks) {
     assert.equal(adapter.host, 'https://space-id.spaces.lexascms.com');
   });
 
+  test('headers shouldn\'t include x-lexascms-context header if there is no request context', function(assert) {
+    const adapter = this.owner.lookup('adapter:lexascms');
+
+    assert.equal(adapter.headers['x-lexascms-context'], undefined);
+  });
+
+  test('headers should include x-lexascms-context header', function(assert) {
+    const adapter = this.owner.lookup('adapter:lexascms');
+
+    adapter.lexascms.setRequestContext({ foo: 'bar' });
+
+    assert.notEqual(adapter.headers['x-lexascms-context'], undefined);
+  });
+
   test('pathForType transforms the model name to camel case', function(assert) {
     const adapter = this.owner.lookup('adapter:lexascms');
 
     assert.equal(adapter.pathForType('modelName'), 'modelName');
     assert.equal(adapter.pathForType('model-name'), 'modelName');
     assert.equal(adapter.pathForType('model_name'), 'modelName');
+  });
+
+  test('_prepareLexasCMSRequestContext returns null if no request context', function(assert) {
+    const adapter = this.owner.lookup('adapter:lexascms');
+
+    assert.equal(adapter._prepareLexasCMSRequestContext(), null);
+  });
+
+  test('_prepareLexasCMSRequestContext returns encoded LexasCMS request context', function(assert) {
+    const adapter = this.owner.lookup('adapter:lexascms');
+
+    adapter.lexascms.setRequestContext({ foo: 'bar' });
+
+    assert.equal(adapter._prepareLexasCMSRequestContext(), btoa(JSON.stringify({ foo: 'bar' })));
   });
 });
