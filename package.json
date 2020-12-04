@@ -1,6 +1,6 @@
 {
   "name": "ember-data-lexascms",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "The officially supported addon for using LexasCMS with Ember Data.",
   "keywords": [
     "ember-addon",
