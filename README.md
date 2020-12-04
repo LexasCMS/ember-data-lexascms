@@ -60,7 +60,8 @@ let ENV = {
   // ...
 
   lexascms: {
-    spaceId: 'YOUR_LEXASCMS_SPACE_ID'
+    spaceId: 'YOUR_LEXASCMS_SPACE_ID',
+    apiKey: 'YOUR_LEXASCMS_API_KEY' // Optional, unless using content previews
   }
 
   // ...
