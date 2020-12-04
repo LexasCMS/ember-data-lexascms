@@ -186,6 +186,35 @@ export default class ApplicationRoute extends Route {
 }
 ```
 
+### Supporting Content Previews
+
+When making use of LexasCMS's [visual content previews](https://www.lexascms.com/features/content-previews/) feature, LexasCMS will load your application with the `lexascmsRequestContent` query parameter.
+
+This value of this parameter will be a pre-encoded request context, which should be provided directly to all request to the Content Delivery API.
+
+The code snippet below shows an example of how you could achieve this using your Application route.
+
+```js
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
+
+export default class ApplicationRoute extends Route {
+
+  @service lexascms;
+
+  queryParams = {
+    lexascmsRequestContext: {
+      refreshModel: true
+    }
+  };
+
+  model({ lexascmsRequestContext }) {
+    this.lexascms.setRequestContext(lexascmsRequestContext);
+  }
+
+}
+```
+
 
 Contributing
 ---------------------------------------------------------------
