@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import config from 'dummy/config/environment';
+import base64 from 'base-64';
 
 module('Unit | Adapter | lexascms', function(hooks) {
   setupTest(hooks);
@@ -58,6 +59,6 @@ module('Unit | Adapter | lexascms', function(hooks) {
 
     adapter.lexascms.setRequestContext({ foo: 'bar' });
 
-    assert.equal(adapter._prepareLexasCMSRequestContext(), btoa(JSON.stringify({ foo: 'bar' })));
+    assert.equal(adapter._prepareLexasCMSRequestContext(), base64.encode(JSON.stringify({ foo: 'bar' })));
   });
 });

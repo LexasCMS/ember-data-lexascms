@@ -23,6 +23,7 @@ Table of Contents
   - [Retrieving Image Fields](#retrieving-image-fields)
   - [Retrieving and Querying Content](#retrieving-and-querying-content)
   - [Setting the Request Context](#setting-the-request-context)
+  - [Supporting Content Previews](#supporting-content-previews)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -36,6 +37,7 @@ The addon currently provides the following:
 
 - Preconfigured adapater/serializer
 - Predefined model for retrieving `image` fields
+- `lexascms` service for managing the LexasCMS request context
 
 
 Installation
@@ -181,6 +183,35 @@ export default class ApplicationRoute extends Route {
         location: 'GB'
       }
     });
+  }
+
+}
+```
+
+### Supporting Content Previews
+
+When making use of LexasCMS's [visual content previews](https://www.lexascms.com/features/content-previews/) feature, LexasCMS will load your application with the `lexascmsRequestContent` query parameter.
+
+This value of this parameter will be a pre-encoded request context, which should be provided directly to all request to the Content Delivery API.
+
+The code snippet below shows an example of how you could achieve this using your Application route.
+
+```js
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
+
+export default class ApplicationRoute extends Route {
+
+  @service lexascms;
+
+  queryParams = {
+    lexascmsRequestContext: {
+      refreshModel: true
+    }
+  };
+
+  model({ lexascmsRequestContext }) {
+    this.lexascms.setRequestContext(lexascmsRequestContext);
   }
 
 }
