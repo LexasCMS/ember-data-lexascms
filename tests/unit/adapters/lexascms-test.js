@@ -26,6 +26,20 @@ module('Unit | Adapter | lexascms', function(hooks) {
     assert.equal(adapter.host, 'https://space-id.spaces.lexascms.com');
   });
 
+  test('headers shouldn\'t include Authorization header if an API key was\'t provided', function(assert) {
+    const adapter = this.owner.lookup('adapter:lexascms');
+
+    assert.equal(adapter.headers['Authorization'], undefined);
+  });
+
+  test('headers should include Authorization header is API key was provided', function(assert) {
+    const adapter = this.owner.lookup('adapter:lexascms');
+
+    config.lexascms = { apiKey: 'lexascms-api-key' };
+
+    assert.equal(adapter.headers['Authorization'], 'Bearer lexascms-api-key');
+  });
+
   test('headers shouldn\'t include x-lexascms-context header if there is no request context', function(assert) {
     const adapter = this.owner.lookup('adapter:lexascms');
 

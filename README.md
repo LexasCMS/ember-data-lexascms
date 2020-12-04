@@ -60,12 +60,15 @@ let ENV = {
   // ...
 
   lexascms: {
-    spaceId: 'YOUR_LEXASCMS_SPACE_ID'
+    spaceId: 'YOUR_LEXASCMS_SPACE_ID',
+    apiKey: 'YOUR_LEXASCMS_API_KEY' // Optional, unless using content previews
   }
 
   // ...
 };
 ```
+
+**Warning:** Placing API keys in your `config/environment.js` file will cause them to be publicly exposed. When using content previews, we recommend using private environments which cannot be accessed publicly.
 
 ### Configure Adapters and Serializers
 

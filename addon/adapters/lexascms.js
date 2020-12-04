@@ -1,6 +1,7 @@
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import { inject as service } from '@ember/service';
 import { assert } from '@ember/debug';
+import { get } from '@ember/object';
 import { camelize } from '@ember/string';
 import config from 'ember-get-config';
 import base64 from 'base-64';
@@ -27,10 +28,14 @@ export default class LexascmsAdapter extends JSONAPIAdapter {
   get headers() {
     // Define headers
     const headers = {};
+    // Set LexasCMS API key if required
+    if (get(config, 'lexascms.apiKey') !== undefined) {
+      headers['Authorization'] = `Bearer ${config.lexascms.apiKey}`;
+    }
     // Set LexasCMS request context if required
     const lexascmsRequestContext = this._prepareLexasCMSRequestContext();
     if (lexascmsRequestContext !== null) {
-      headers['x-lexascms-context'] = lexascmsRequestContext
+      headers['x-lexascms-context'] = lexascmsRequestContext;
     }
     // Return headers
     return headers;
