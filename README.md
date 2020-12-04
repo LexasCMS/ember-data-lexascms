@@ -23,6 +23,7 @@ Table of Contents
   - [Retrieving Image Fields](#retrieving-image-fields)
   - [Retrieving and Querying Content](#retrieving-and-querying-content)
   - [Setting the Request Context](#setting-the-request-context)
+  - [Supporting Content Previews](#supporting-content-previews)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -36,6 +37,7 @@ The addon currently provides the following:
 
 - Preconfigured adapater/serializer
 - Predefined model for retrieving `image` fields
+- `lexascms` service for managing the LexasCMS request context
 
 
 Installation
