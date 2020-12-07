@@ -214,7 +214,10 @@ export default class ApplicationRoute extends Route {
   };
 
   model({ lexascmsRequestContext }) {
-    this.lexascms.setRequestContext(lexascmsRequestContext);
+    // Set request context if 'lexascmsRequestContext' is defined
+    if (lexascmsRequestContext !== undefined) {
+      this.lexascms.setRequestContext(lexascmsRequestContext);
+    }
   }
 
 }
